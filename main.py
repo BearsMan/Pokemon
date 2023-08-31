@@ -1,6 +1,5 @@
 # create Pokemon Game
 # Setup Classes, Variables, Functions, etc.
-from types import MethodType
 import random
 
 class Pokemon:
@@ -60,10 +59,12 @@ def battleAttack(pokemon, attack, targetPokemon):
       superEffective = 15 + 5
     if attack.AttackType == "water" and targetPokemon.type == "Eletric":
       print(attack.name + "Attack is not super effetive")
-    targetPokemon.health
+  
+    targetPokemon.health -= Attack.damage + superEffective
+    print(targetPokemon.name + "took" + str(attack.damage + superEffective)+ "damage!")
     damageCheck = True
 
-print("welcome to the pokemon game, choose a pokemon of your choice. \n 1. Squirtle \n 2. Charmander \n 3. Bulbasaur \n 4. Pikachu")
+print("welcome to my pokemon game, choose a pokemon of your choice. \n 1. Squirtle \n 2. Charmander \n 3. Bulbasaur \n 4. Pikachu")
 
 pokemon_choice = int(input())
 if pokemon_choice == 1:
@@ -92,22 +93,37 @@ if enemyChoice == 0:
    print("The enemy chose Squirtle!")
 
    enemyPokemon = pokemon4
-   listOfMoves = [Attack10, Attack11, Attack12]
+   listOfEnemyMoves = [Attack10, Attack11, Attack12]
 
 if enemyChoice == 1:
    print("The enemy chose Charizard!")
    enemyPokemon = pokemon2
-   listOfMoves = [Attack4, Attack5, Attack6]
+   listOfEnemyMoves = [Attack4, Attack5, Attack6]
 
 if enemyChoice == 2:
    print("The enemy chose Bulbasaur!")
    enemyPokemon = pokemon3
-   listOfMoves = [Attack7, Attack8, Attack9]
+   listOfEnemyMoves = [Attack7, Attack8, Attack9]
 
 if enemyChoice == 3:
    print("The enemy chose Pikachu!")
    enemyPokemon = pokemon4
-   listOfMoves = [Attack1, Attack2, Attack3]
+   listOfEnemyMoves = [Attack1, Attack2, Attack3]
 
-print("The battle begins with" + playerPokemon.name + "and" enemyPokemon.name)
+print("The battle begins with "  + playerPokemon.name +  " and "  + enemyPokemon.name)
 battleLoop = True
+
+while battleLoop:
+  attackChoice = int(input("Enter what number of move that you to enter!"))
+  Attack(playerPokemon, listOfMoves[attackChoice], enemyPokemon)
+  if enemyPokemon.health <= 0:
+    print("You Win!")
+    break
+    
+  enemyAttack = random.randint(0, 2)
+  Attack(enemyPokemon, listOfEnemyMoves[enemyAttack], playerPokemon)
+  if playerPokemon.health <= 0:
+    print("You Lose!")
+    break
+
+print("The player has" + str(playerPokemon.health) + "Remaining")
